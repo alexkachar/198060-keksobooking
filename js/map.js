@@ -175,6 +175,12 @@ var renderAdvertCard = function (offerData) {
   return renderedCard;
 };
 
+var setAddress = function () {
+  addressField.value = (mainPin.offsetLeft
+      + Math.round(mainPin.offsetWidth / 2)) + ', '
+      + (mainPin.offsetTop + Math.round(mainPin.offsetHeight));
+};
+
 var fieldsetModeSwitcher = function (flag) {
   var fieldset = document.querySelectorAll('fieldset');
   for (var i = 0; i < fieldset.length; i++) {
@@ -204,13 +210,6 @@ var makeInterfaceVisible = function () {
   showForm();
   fieldsetModeSwitcher(false);
   drawMapPins(ADVERTS_NUMBER);
-  setAddress();
-};
-
-var setAddress = function () {
-  addressField.value = (mainPin.offsetLeft
-      + Math.round(mainPin.offsetWidth / 2)) + ', '
-      + (mainPin.offsetTop + Math.round(mainPin.offsetHeight));
 };
 
 var onMouseUpShow = function () {
@@ -256,3 +255,4 @@ mainPin.addEventListener('keydown', onPressEnterShow);
 map.addEventListener('keydown', onPressEscClose);
 
 fadeInterface();
+setAddress();
