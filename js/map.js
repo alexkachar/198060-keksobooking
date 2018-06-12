@@ -114,10 +114,10 @@ var generateAdvertsArray = function (advertsNumber) {
 
 var adverts = generateAdvertsArray(ADVERTS_NUMBER);
 
-var renderMapNode = function (offerData, i) {
+var renderMapNode = function (offerData, index) {
   var mapPin = document.createElement('button');
   mapPin.className = 'map__pin';
-  mapPin.setAttribute('data-number', i);
+  mapPin.setAttribute('data-number', index);
   mapPin.style.left = offerData.location.x - MAP_PIN_OFFSET_X + 'px';
   mapPin.style.top = offerData.location.y - MAP_PIN_OFFSET_Y + 'px';
   mapPin.addEventListener('click', openPopup);
@@ -223,9 +223,11 @@ var onPressEnterShow = function (evt) {
 };
 
 var closePopup = function () {
-  map.querySelector('.popup').remove();
-  map.querySelector('.map__pin--active').classList.remove('map__pin--active');
-  document.removeEventListener('keydown', onPressEscClose);
+  if (map.contains(map.querySelector('.popup'))) {
+    map.querySelector('.popup').remove();
+    map.querySelector('.map__pin--active').classList.remove('map__pin--active');
+    document.removeEventListener('keydown', onPressEscClose);
+  }
 };
 
 var onPressEscClose = function (evt) {
