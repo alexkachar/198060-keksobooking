@@ -237,16 +237,14 @@ var onPressEscClose = function (evt) {
 };
 
 var openPopup = function (evt) {
-  var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-  var pinTarget = evt.currentTarget.dataset.number;
   if (map.contains(map.querySelector('.map__pin--active'))) {
     map.querySelector('.map__pin--active').classList.remove('map__pin--active');
   }
   if (map.contains(map.querySelector('.popup'))) {
     map.querySelector('.popup').remove();
   }
-  pins[pinTarget].classList.add('map__pin--active');
-  map.insertBefore(renderAdvertCard(adverts[pinTarget]), document.querySelector('.map__filters-container'));
+  evt.currentTarget.classList.add('map__pin--active');
+  map.insertBefore(renderAdvertCard(adverts[evt.currentTarget.dataset.number]), document.querySelector('.map__filters-container'));
   var popupClose = document.querySelector('.popup__close');
   popupClose.addEventListener('click', closePopup);
   document.addEventListener('keydown', onPressEscClose);
