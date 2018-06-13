@@ -311,8 +311,6 @@ adFormTypeField.addEventListener('change', function () {
   }
 });
 
-//  Блок проверки количества комнат и гостей
-
 var disableCapacityOptions = function (num) {
   for (var i = 0; i < adFormCapacitySelect.children.length; i++) {
     adFormCapacitySelect.children[i].setAttribute('disabled', '');
@@ -352,8 +350,6 @@ adFormRoomsSelect.addEventListener('change', function (evt) {
     addCapacityOption(3, 3);
   }
 });
-
-// Блок проверки времеми въезда/выезда
 
 var changeTime = function (target, value) {
   target.value = value;
