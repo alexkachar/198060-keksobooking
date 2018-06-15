@@ -74,7 +74,6 @@ var PHOTOS_LIST = [
 var map = document.querySelector('.map');
 var adForm = document.querySelector('.ad-form');
 var mainPin = map.querySelector('.map__pin--main');
-var addressField = adForm.querySelector('#address');
 
 var generateAdvert = function () {
   var locationX = getRandomValue(300, 900);
@@ -175,8 +174,10 @@ var renderAdvertCard = function (offerData) {
   return renderedCard;
 };
 
+var adFormAddressField = adForm.querySelector('#address');
+
 var setAddress = function () {
-  addressField.value = (mainPin.offsetLeft
+  adFormAddressField.value = (mainPin.offsetLeft
       + Math.round(mainPin.offsetWidth / 2)) + ', '
       + (mainPin.offsetTop + Math.round(mainPin.offsetHeight));
 };
@@ -214,11 +215,13 @@ var makeInterfaceVisible = function () {
 
 var onMouseUpShow = function () {
   makeInterfaceVisible();
+  setAddress();
 };
 
 var onPressEnterShow = function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     makeInterfaceVisible();
+    setAddress();
   }
 };
 
@@ -255,9 +258,6 @@ mainPin.addEventListener('keydown', onPressEnterShow);
 map.addEventListener('keydown', onPressEscClose);
 
 fadeInterface();
-setAddress();
-
-// Блок валидации формы
 
 var adFormTitleField = adForm.querySelector('#title');
 var adFormPriceField = adForm.querySelector('#price');
