@@ -71,6 +71,25 @@ var PHOTOS_LIST = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 
+var RENT_VALUES = {
+  'flat': {
+    min: '1000',
+    placeholder: '1000'
+  },
+  'house': {
+    min: '5000',
+    placeholder: '5000'
+  },
+  'palace': {
+    min: '10000',
+    placeholder: '10000'
+  },
+  'bungalo': {
+    min: '0',
+    placeholder: '0'
+  }
+};
+
 var map = document.querySelector('.map');
 var adForm = document.querySelector('.ad-form');
 var mainPin = map.querySelector('.map__pin--main');
@@ -293,20 +312,20 @@ adFormTitleField.addEventListener('input', function () {
 adFormTypeField.addEventListener('change', function () {
   switch (adFormTypeField.value) {
     case 'flat':
-      adFormPriceField.min = '1000';
-      adFormPriceField.placeholder = '1000';
+      adFormPriceField.min = RENT_VALUES.flat.min;
+      adFormPriceField.placeholder = RENT_VALUES.flat.placeholder;
       return;
     case 'house':
-      adFormPriceField.min = '5000';
-      adFormPriceField.placeholder = '5000';
+      adFormPriceField.min = RENT_VALUES.house.min;
+      adFormPriceField.placeholder = RENT_VALUES.house.placeholder;
       return;
     case 'palace':
-      adFormPriceField.min = '10000';
-      adFormPriceField.placeholder = '10000';
+      adFormPriceField.min = RENT_VALUES.palace.min;
+      adFormPriceField.placeholder = RENT_VALUES.palace.placeholder;
       return;
     default:
-      adFormPriceField.min = '0';
-      adFormPriceField.placeholder = '0';
+      adFormPriceField.min = RENT_VALUES.bungalo.min;
+      adFormPriceField.placeholder = RENT_VALUES.bungalo.placeholder;
       return;
   }
 });
@@ -325,7 +344,8 @@ var addCapacityOption = function (from, to) {
   }
 };
 
-disableCapacityOptions(2);
+disableCapacityOptions(1);
+addCapacityOption(2, 2);
 
 adFormRoomsSelect.addEventListener('change', function (evt) {
   var target = evt.target;
