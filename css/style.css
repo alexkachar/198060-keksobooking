@@ -649,6 +649,14 @@ fieldset {
   margin-right: 14px;
 }
 
+.ad-form__input--invalid {
+  box-shadow: 0 0 0pt 1pt #ff0000;
+}
+
+.ad-form__input--invalid:focus {
+  box-shadow: 0 0 0pt 1pt #ff0000 !important;
+}
+
 .features legend {
   padding-bottom: 5px;
 }
