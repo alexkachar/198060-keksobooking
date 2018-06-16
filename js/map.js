@@ -344,7 +344,7 @@ var addCapacityOption = function (from, to) {
   }
 };
 
-disableCapacityOptions(1);
+disableCapacityOptions(2);
 addCapacityOption(2, 2);
 
 adFormRoomsSelect.addEventListener('change', function (evt) {
