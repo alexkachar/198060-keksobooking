@@ -90,8 +90,16 @@ var RENT_VALUES = {
   }
 };
 
-var MAIN_PIN_WIDTH = 50;
-var MAIN_PIN_HEIGHT = 82;
+var MAIN_PIN_SIZES = {
+  'full': {
+    width: 50,
+    height: 82,
+  },
+  'halfed': {
+    width: 50 / 2,
+    height: 82 / 2
+  }
+};
 
 var PIN_RESTRICTIONS = {
   minY: 130,
@@ -309,10 +317,10 @@ mainPin.addEventListener('mousedown', function (evt) {
       y: moveEvt.clientY
     };
 
-    if ((mainPin.offsetTop - shift.y) < PIN_RESTRICTIONS.maxY - MAIN_PIN_HEIGHT / 2 && mainPin.offsetTop - shift.y > PIN_RESTRICTIONS.minY - MAIN_PIN_HEIGHT / 2) {
+    if ((mainPin.offsetTop - shift.y) < PIN_RESTRICTIONS.maxY - MAIN_PIN_SIZES.halfed.height && mainPin.offsetTop - shift.y > PIN_RESTRICTIONS.minY - MAIN_PIN_SIZES.halfed.height) {
       mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
     }
-    if (mainPin.offsetLeft - shift.x > PIN_RESTRICTIONS.minX + MAIN_PIN_WIDTH / 2 && mainPin.offsetLeft - shift.x < PIN_RESTRICTIONS.maxX) {
+    if (mainPin.offsetLeft - shift.x > PIN_RESTRICTIONS.minX + MAIN_PIN_SIZES.halfed.width && mainPin.offsetLeft - shift.x < PIN_RESTRICTIONS.maxX) {
       mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
     }
 
