@@ -92,7 +92,7 @@ var RENT_VALUES = {
 
 var MAIN_PIN_SIZES = {
   width: 50,
-  height: 82,
+  height: 82
 };
 
 var MAIN_PIN_SIZES_HALFED = {
