@@ -91,14 +91,13 @@ var RENT_VALUES = {
 };
 
 var MAIN_PIN_SIZES = {
-  'full': {
-    width: 50,
-    height: 82,
-  },
-  'halfed': {
-    width: 50 / 2,
-    height: 82 / 2
-  }
+  width: 50,
+  height: 82,
+};
+
+var MAIN_PIN_SIZES_HALFED = {
+  width: MAIN_PIN_SIZES.width / 2,
+  height: MAIN_PIN_SIZES.height / 2
 };
 
 var PIN_RESTRICTIONS = {
@@ -317,10 +316,10 @@ mainPin.addEventListener('mousedown', function (evt) {
       y: moveEvt.clientY
     };
 
-    if ((mainPin.offsetTop - shift.y) < PIN_RESTRICTIONS.maxY - MAIN_PIN_SIZES.halfed.height && mainPin.offsetTop - shift.y > PIN_RESTRICTIONS.minY - MAIN_PIN_SIZES.halfed.height) {
+    if ((mainPin.offsetTop - shift.y) < PIN_RESTRICTIONS.maxY - MAIN_PIN_SIZES_HALFED.height && mainPin.offsetTop - shift.y > PIN_RESTRICTIONS.minY - MAIN_PIN_SIZES_HALFED.height) {
       mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
     }
-    if (mainPin.offsetLeft - shift.x > PIN_RESTRICTIONS.minX + MAIN_PIN_SIZES.halfed.width && mainPin.offsetLeft - shift.x < PIN_RESTRICTIONS.maxX) {
+    if (mainPin.offsetLeft - shift.x > PIN_RESTRICTIONS.minX + MAIN_PIN_SIZES_HALFED.width && mainPin.offsetLeft - shift.x < PIN_RESTRICTIONS.maxX) {
       mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
     }
 
