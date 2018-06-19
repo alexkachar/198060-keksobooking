@@ -11,90 +11,8 @@ var MAP_PIN_OFFSET_Y = '87';
 var PHOTO_IMAGE_WIDTH = '40';
 var PHOTO_IMAGE_HEIGHT = '40';
 
-var ADVERTS_NUMBER = 8;
-var IMAGES = ['01', '02', '03', '04', '05', '06', '07', '08'];
-var TITLES_LIST = [
-  'Большая уютная квартира',
-  'Маленькая неуютная квартира',
-  'Огромный прекрасный дворец',
-  'Маленький ужасный дворец',
-  'Красивый гостевой домик',
-  'Некрасивый негостеприимный домик',
-  'Уютное бунгало далеко от моря',
-  'Неуютное бунгало по колено в воде'
-];
-var TYPES_MAP = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalo': 'Бунгало'
-};
-var TYPES = ['palace', 'flat', 'house', 'bungalo'];
-var TIMES_LIST = ['12:00', '13:00', '14:00'];
-var FEATURES_LIST = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var PHOTOS_LIST = [
-  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
-];
-
-var MAIN_PIN_SIZES = {
-  width: 50,
-  height: 82
-};
-
-var MAIN_PIN_SIZES_HALFED = {
-  width: MAIN_PIN_SIZES.width / 2,
-  height: MAIN_PIN_SIZES.height / 2
-};
-
-var PIN_RESTRICTIONS = {
-  minY: 130,
-  maxY: 630,
-  minX: 0,
-  maxX: 1100
-};
-
 var map = document.querySelector('.map');
 var mainPin = map.querySelector('.map__pin--main');
-
-var generateAdvert = function () {
-  var locationX = window.randomize.getRandomValue(300, 900);
-  var locationY = window.randomize.getRandomValue(130, 630);
-  var advert = {
-    author: {
-      avatar: 'img/avatars/user' + window.randomize.getUniqueValueFromArray(IMAGES) + '.png'
-    },
-    offer: {
-      title: window.randomize.getUniqueValueFromArray(TITLES_LIST),
-      address: locationX + ', ' + locationY,
-      price: window.randomize.getRandomValue(1000, 1000000),
-      type: window.randomize.getRandomValueFromArray(TYPES),
-      rooms: window.randomize.getRandomValue(1, 5),
-      guests: window.randomize.getRandomValue(1, 10),
-      checkin: window.randomize.getRandomValueFromArray(TIMES_LIST),
-      checkout: window.randomize.getRandomValueFromArray(TIMES_LIST),
-      features: window.randomize.getRandomArray(FEATURES_LIST),
-      description: '',
-      photos: window.randomize.getShuffledArray(PHOTOS_LIST)
-    },
-    location: {
-      x: locationX,
-      y: locationY
-    }
-  };
-  return advert;
-};
-
-var generateAdvertsArray = function (advertsNumber) {
-  var adverts = [];
-  for (var i = 0; i < advertsNumber; i++) {
-    adverts.push(generateAdvert());
-  }
-  return adverts;
-};
-
-var adverts = generateAdvertsArray(ADVERTS_NUMBER);
 
 var renderMapNode = function (offerData, index) {
   var mapPin = document.createElement('button');
@@ -116,11 +34,18 @@ var renderMapNode = function (offerData, index) {
 var drawMapPins = function (pinsNumber) {
   var mapPins = document.querySelector('.map__pins');
   for (var i = 0; i < pinsNumber; i++) {
-    mapPins.appendChild(renderMapNode(adverts[i], i));
+    mapPins.appendChild(renderMapNode(window.adverts[i], i));
   }
 };
 
 var mapCardTemplate = document.querySelector('template').content.querySelector('.map__card');
+
+var TYPES_MAP = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalo': 'Бунгало'
+};
 
 var renderAdvertCard = function (offerData) {
   var renderedCard = mapCardTemplate.cloneNode(true);
@@ -157,21 +82,14 @@ var renderAdvertCard = function (offerData) {
   return renderedCard;
 };
 
-var adForm = document.querySelector('.ad-form');
-var adFormAddressField = adForm.querySelector('#address');
-
-var setAddress = function () {
-  adFormAddressField.value = (mainPin.offsetLeft
-      + Math.round(mainPin.offsetWidth / 2)) + ', '
-      + (mainPin.offsetTop + Math.round(mainPin.offsetHeight));
-};
-
 var fieldsetModeSwitcher = function (flag) {
   var fieldset = document.querySelectorAll('fieldset');
   for (var i = 0; i < fieldset.length; i++) {
     fieldset[i].disabled = flag;
   }
 };
+
+var adForm = document.querySelector('.ad-form');
 
 var showForm = function () {
   adForm.classList.remove('ad-form--disabled');
@@ -190,6 +108,8 @@ var fadeInterface = function () {
   fieldsetModeSwitcher(true);
 };
 
+var ADVERTS_NUMBER = 8;
+
 var makeInterfaceVisible = function () {
   unfadeMap();
   showForm();
@@ -199,13 +119,13 @@ var makeInterfaceVisible = function () {
 
 var onMouseUpShow = function () {
   makeInterfaceVisible();
-  setAddress();
+  window.utils.setAddress();
 };
 
 var onPressEnterShow = function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     makeInterfaceVisible();
-    setAddress();
+    window.utils.setAddress();
   }
 };
 
@@ -231,7 +151,7 @@ var openPopup = function (evt) {
     map.querySelector('.popup').remove();
   }
   evt.currentTarget.classList.add('map__pin--active');
-  map.insertBefore(renderAdvertCard(adverts[evt.currentTarget.dataset.number]), document.querySelector('.map__filters-container'));
+  map.insertBefore(renderAdvertCard(window.adverts[evt.currentTarget.dataset.number]), document.querySelector('.map__filters-container'));
   var popupClose = document.querySelector('.popup__close');
   popupClose.addEventListener('click', closePopup);
   document.addEventListener('keydown', onPressEscClose);
@@ -242,46 +162,3 @@ mainPin.addEventListener('keydown', onPressEnterShow);
 map.addEventListener('keydown', onPressEscClose);
 
 fadeInterface();
-
-mainPin.addEventListener('mousedown', function (evt) {
-  evt.preventDefault();
-
-  var startCoords = {
-    x: evt.clientX,
-    y: evt.clientY
-  };
-
-  var onMouseMove = function (moveEvt) {
-    moveEvt.preventDefault();
-
-    var shift = {
-      x: startCoords.x - moveEvt.clientX,
-      y: startCoords.y - moveEvt.clientY
-    };
-
-    startCoords = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY
-    };
-
-    if ((mainPin.offsetTop - shift.y) < PIN_RESTRICTIONS.maxY - MAIN_PIN_SIZES_HALFED.height && mainPin.offsetTop - shift.y > PIN_RESTRICTIONS.minY - MAIN_PIN_SIZES_HALFED.height) {
-      mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
-    }
-    if (mainPin.offsetLeft - shift.x > PIN_RESTRICTIONS.minX + MAIN_PIN_SIZES_HALFED.width && mainPin.offsetLeft - shift.x < PIN_RESTRICTIONS.maxX) {
-      mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
-    }
-
-  };
-
-  var onMouseUp = function (upEvt) {
-    upEvt.preventDefault();
-
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  };
-
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-
-  setAddress();
-});
