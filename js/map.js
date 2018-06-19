@@ -1,37 +1,5 @@
 'use strict';
 
-var getRandomValue = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-var getRandomValueFromArray = function (array) {
-  return array[getRandomValue(0, array.length - 1)];
-};
-
-var getUniqueValueFromArray = function (array) {
-  return array.splice(Math.floor(Math.random() * array.length), 1).toString();
-};
-
-var getRandomArray = function (array) {
-  var sourceArray = array.slice().sort();
-  var randomArray = [];
-  var randomLength = getRandomValue(1, (array.length - 1));
-  for (var i = 0; i <= randomLength; i++) {
-    randomArray[i] = getUniqueValueFromArray(sourceArray);
-  }
-  return randomArray;
-};
-
-var getShuffledArray = function (array) {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var x = array[i];
-    array[i] = array[j];
-    array[j] = x;
-  }
-  return array;
-};
-
 var ENTER_KEYCODE = 13;
 var ESC_KEYCODE = 27;
 
@@ -112,24 +80,24 @@ var adForm = document.querySelector('.ad-form');
 var mainPin = map.querySelector('.map__pin--main');
 
 var generateAdvert = function () {
-  var locationX = getRandomValue(300, 900);
-  var locationY = getRandomValue(130, 630);
+  var locationX = window.randomize.getRandomValue(300, 900);
+  var locationY = window.randomize.getRandomValue(130, 630);
   var advert = {
     author: {
-      avatar: 'img/avatars/user' + getUniqueValueFromArray(IMAGES) + '.png'
+      avatar: 'img/avatars/user' + window.randomize.getUniqueValueFromArray(IMAGES) + '.png'
     },
     offer: {
-      title: getUniqueValueFromArray(TITLES_LIST),
+      title: window.randomize.getUniqueValueFromArray(TITLES_LIST),
       address: locationX + ', ' + locationY,
-      price: getRandomValue(1000, 1000000),
-      type: getRandomValueFromArray(TYPES),
-      rooms: getRandomValue(1, 5),
-      guests: getRandomValue(1, 10),
-      checkin: getRandomValueFromArray(TIMES_LIST),
-      checkout: getRandomValueFromArray(TIMES_LIST),
-      features: getRandomArray(FEATURES_LIST),
+      price: window.randomize.getRandomValue(1000, 1000000),
+      type: window.randomize.getRandomValueFromArray(TYPES),
+      rooms: window.randomize.getRandomValue(1, 5),
+      guests: window.randomize.getRandomValue(1, 10),
+      checkin: window.randomize.getRandomValueFromArray(TIMES_LIST),
+      checkout: window.randomize.getRandomValueFromArray(TIMES_LIST),
+      features: window.randomize.getRandomArray(FEATURES_LIST),
       description: '',
-      photos: getShuffledArray(PHOTOS_LIST)
+      photos: window.randomize.getShuffledArray(PHOTOS_LIST)
     },
     location: {
       x: locationX,
