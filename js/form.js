@@ -28,6 +28,7 @@
   var adFormCapacitySelect = adForm.querySelector('#capacity');
   var adFormCheckInSelect = adForm.querySelector('#timein');
   var adFormCheckOutSelect = adForm.querySelector('#timeout');
+  var adFormAddressField = adForm.querySelector('#address');
 
   adForm.addEventListener('invalid', function (evt) {
     evt.target.classList.add('ad-form__input--invalid');
@@ -129,4 +130,21 @@
   addEventListener('load', function () {
     adForm.reset();
   });
+
+  window.form = {
+    fieldsetModeSwitcher: function (flag) {
+      var fieldset = document.querySelectorAll('fieldset');
+      for (var i = 0; i < fieldset.length; i++) {
+        fieldset[i].disabled = flag;
+      }
+    },
+    setAddress: function () {
+      adFormAddressField.value = (mainPin.offsetLeft
+          + Math.round(mainPin.offsetWidth / 2)) + ', '
+          + (mainPin.offsetTop + Math.round(mainPin.offsetHeight));
+    },
+    showForm: function () {
+      adForm.classList.remove('ad-form--disabled');
+    }
+  };
 })();
