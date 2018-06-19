@@ -60,6 +60,6 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
 
-    window.utils.setAddress();
+    window.form.setAddress();
   });
 })();

@@ -2,7 +2,7 @@
 
 (function () {
 
-  var ADVERTS_NUMBER = 8;
+  window.ADVERTS_NUMBER = 8;
   var IMAGES = ['01', '02', '03', '04', '05', '06', '07', '08'];
   var TITLES_LIST = [
     'Большая уютная квартира',
@@ -59,5 +59,5 @@
     return adverts;
   };
 
-  window.adverts = generateAdvertsArray(ADVERTS_NUMBER);
+  window.adverts = generateAdvertsArray(window.ADVERTS_NUMBER);
 })();

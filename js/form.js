@@ -139,9 +139,9 @@
       }
     },
     setAddress: function () {
-      adFormAddressField.value = (mainPin.offsetLeft
-          + Math.round(mainPin.offsetWidth / 2)) + ', '
-          + (mainPin.offsetTop + Math.round(mainPin.offsetHeight));
+      adFormAddressField.value = (window.mainPin.offsetLeft
+          + Math.round(window.mainPin.offsetWidth / 2)) + ', '
+          + (window.mainPin.offsetTop + Math.round(window.mainPin.offsetHeight));
     },
     showForm: function () {
       adForm.classList.remove('ad-form--disabled');
