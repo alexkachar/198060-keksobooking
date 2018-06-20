@@ -24,24 +24,24 @@
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
   ];
   var generateAdvert = function () {
-    var locationX = window.randomize.getRandomValue(300, 900);
-    var locationY = window.randomize.getRandomValue(130, 630);
+    var locationX = window.utils.getRandomValue(300, 900);
+    var locationY = window.utils.getRandomValue(130, 630);
     var advert = {
       author: {
-        avatar: 'img/avatars/user' + window.randomize.getUniqueValueFromArray(IMAGES) + '.png'
+        avatar: 'img/avatars/user' + window.utils.getUniqueValueFromArray(IMAGES) + '.png'
       },
       offer: {
-        title: window.randomize.getUniqueValueFromArray(TITLES_LIST),
+        title: window.utils.getUniqueValueFromArray(TITLES_LIST),
         address: locationX + ', ' + locationY,
-        price: window.randomize.getRandomValue(1000, 1000000),
-        type: window.randomize.getRandomValueFromArray(TYPES),
-        rooms: window.randomize.getRandomValue(1, 5),
-        guests: window.randomize.getRandomValue(1, 10),
-        checkin: window.randomize.getRandomValueFromArray(TIMES_LIST),
-        checkout: window.randomize.getRandomValueFromArray(TIMES_LIST),
-        features: window.randomize.getRandomArray(FEATURES_LIST),
+        price: window.utils.getRandomValue(1000, 1000000),
+        type: window.utils.getRandomValueFromArray(TYPES),
+        rooms: window.utils.getRandomValue(1, 5),
+        guests: window.utils.getRandomValue(1, 10),
+        checkin: window.utils.getRandomValueFromArray(TIMES_LIST),
+        checkout: window.utils.getRandomValueFromArray(TIMES_LIST),
+        features: window.utils.getRandomArray(FEATURES_LIST),
         description: '',
-        photos: window.randomize.getShuffledArray(PHOTOS_LIST)
+        photos: window.utils.getShuffledArray(PHOTOS_LIST)
       },
       location: {
         x: locationX,

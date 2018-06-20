@@ -1,50 +1,37 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 13;
-  var ESC_KEYCODE = 27;
-
-  var map = document.querySelector('.map');
-
   window.utils = {
-    onPressEnterShow: function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        window.mapObj.makeInterfaceVisible();
-        window.form.setAddress();
-      }
+    getRandomValue: function (min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
-    onMouseUpShow: function () {
-      window.mapObj.makeInterfaceVisible();
-      window.form.setAddress();
+    getRandomValueFromArray: function (array) {
+      return array[this.getRandomValue(0, array.length - 1)];
     },
 
-    closePopup: function () {
-      if (map.contains(map.querySelector('.popup'))) {
-        map.querySelector('.popup').remove();
-        map.querySelector('.map__pin--active').classList.remove('map__pin--active');
-        document.removeEventListener('keydown', this.onPressEscClose);
-      }
+    getUniqueValueFromArray: function (array) {
+      return array.splice(Math.floor(Math.random() * array.length), 1).toString();
     },
 
-    onPressEscClose: function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        window.utils.closePopup();
+    getRandomArray: function (array) {
+      var sourceArray = array.slice().sort();
+      var randomArray = [];
+      var randomLength = this.getRandomValue(1, (array.length - 1));
+      for (var i = 0; i <= randomLength; i++) {
+        randomArray[i] = this.getUniqueValueFromArray(sourceArray);
       }
+      return randomArray;
     },
 
-    openPopup: function (evt) {
-      if (map.contains(map.querySelector('.map__pin--active'))) {
-        map.querySelector('.map__pin--active').classList.remove('map__pin--active');
+    getShuffledArray: function (array) {
+      for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var x = array[i];
+        array[i] = array[j];
+        array[j] = x;
       }
-      if (map.contains(map.querySelector('.popup'))) {
-        map.querySelector('.popup').remove();
-      }
-      evt.currentTarget.classList.add('map__pin--active');
-      map.insertBefore(window.card.renderAdvertCard(window.adverts[evt.currentTarget.dataset.number]), document.querySelector('.map__filters-container'));
-      var popupClose = document.querySelector('.popup__close');
-      popupClose.addEventListener('click', window.utils.closePopup);
-      document.addEventListener('keydown', this.onPressEscClose);
+      return array;
     }
   };
 })();

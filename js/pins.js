@@ -12,7 +12,7 @@
     mapPin.setAttribute('data-number', index);
     mapPin.style.left = offerData.location.x - MAP_PIN_OFFSET_X + 'px';
     mapPin.style.top = offerData.location.y - MAP_PIN_OFFSET_Y + 'px';
-    mapPin.addEventListener('click', window.utils.openPopup);
+    mapPin.addEventListener('click', window.openPopup);
     var mapPinImg = document.createElement('img');
     mapPinImg.src = offerData.author.avatar;
     mapPinImg.alt = offerData.offer.title;
