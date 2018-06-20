@@ -5,7 +5,7 @@
   var ESC_KEYCODE = 27;
 
   var map = document.querySelector('.map');
-  var mainPin = map.querySelector('.map__pin--main');
+  window.mainPin = map.querySelector('.map__pin--main');
 
   var fadeMap = function () {
     map.classList.add('map--faded');
@@ -67,8 +67,8 @@
     document.addEventListener('keydown', onPressEscClose);
   };
 
-  mainPin.addEventListener('mouseup', onMouseUpShow);
-  mainPin.addEventListener('keydown', onPressEnterShow);
+  window.mainPin.addEventListener('mouseup', onMouseUpShow);
+  window.mainPin.addEventListener('keydown', onPressEnterShow);
   map.addEventListener('keydown', onPressEscClose);
 
   fadeInterface();
