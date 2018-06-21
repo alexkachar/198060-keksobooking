@@ -131,6 +131,19 @@
     adForm.reset();
   });
 
+  var successPopUp = document.querySelector('.success');
+
+  adForm.addEventListener('submit', function (evt) {
+    window.backend.upload(new FormData(adForm), function () {
+      successPopUp.classList.remove('hidden');
+    });
+    evt.preventDefault();
+
+    setTimeout(function () {
+      successPopUp.classList.add('hidden');
+    }, 3000);
+  });
+
   window.form = {
     fieldsetModeSwitcher: function (flag) {
       var fieldset = document.querySelectorAll('fieldset');
