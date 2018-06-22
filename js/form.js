@@ -30,6 +30,26 @@
   var adFormCheckOutSelect = adForm.querySelector('#timeout');
   var adFormAddressField = adForm.querySelector('#address');
 
+  window.form = {
+    fieldsetModeSwitcher: function (flag) {
+      var fieldset = document.querySelectorAll('fieldset');
+      for (var i = 0; i < fieldset.length; i++) {
+        fieldset[i].disabled = flag;
+      }
+    },
+    setAddress: function () {
+      adFormAddressField.value = (window.mainPin.offsetLeft
+          + Math.round(window.mainPin.offsetWidth / 2)) + ', '
+          + (window.mainPin.offsetTop + Math.round(window.mainPin.offsetHeight));
+    },
+    showForm: function () {
+      adForm.classList.remove('ad-form--disabled');
+    },
+    hideForm: function () {
+      adForm.classList.add('ad-form--disabled');
+    }
+  };
+
   adForm.addEventListener('invalid', function (evt) {
     evt.target.classList.add('ad-form__input--invalid');
   }, true);
@@ -133,31 +153,30 @@
 
   var successPopUp = document.querySelector('.success');
 
-  adForm.addEventListener('submit', function (evt) {
-    window.backend.upload(new FormData(adForm), function () {
-      successPopUp.classList.remove('hidden');
-    });
-    evt.preventDefault();
+  var showSuccessPopUp = function () {
+    successPopUp.classList.remove('hidden');
+  };
 
+  var hideSuccessPopup = function () {
     setTimeout(function () {
       successPopUp.classList.add('hidden');
     }, 3000);
+  };
+
+  var onFormUploadSuccess = function () {
+    showSuccessPopUp();
+    hideSuccessPopup();
+    window.form.fieldsetModeSwitcher(true);
+    window.form.hideForm();
+    document.querySelector('.map').classList.add('map--faded');
+    window.pins.removeMapPins();
+    window.pins.resetMainPin();
+    adForm.reset();
+  };
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(onFormUploadSuccess, window.utils.onErrorRenderMessage, new FormData(adForm));
   });
 
-  window.form = {
-    fieldsetModeSwitcher: function (flag) {
-      var fieldset = document.querySelectorAll('fieldset');
-      for (var i = 0; i < fieldset.length; i++) {
-        fieldset[i].disabled = flag;
-      }
-    },
-    setAddress: function () {
-      adFormAddressField.value = (window.mainPin.offsetLeft
-          + Math.round(window.mainPin.offsetWidth / 2)) + ', '
-          + (window.mainPin.offsetTop + Math.round(window.mainPin.offsetHeight));
-    },
-    showForm: function () {
-      adForm.classList.remove('ad-form--disabled');
-    }
-  };
 })();

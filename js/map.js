@@ -5,7 +5,6 @@
   var ESC_KEYCODE = 27;
 
   var map = document.querySelector('.map');
-  window.mainPin = map.querySelector('.map__pin--main');
 
   var fadeMap = function () {
     map.classList.add('map--faded');
