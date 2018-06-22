@@ -151,6 +151,7 @@
     adForm.reset();
   });
 
+  var ESC_KEYCODE = 27;
   var successPopUp = document.querySelector('.success');
 
   var showSuccessPopUp = function () {
@@ -158,14 +159,28 @@
   };
 
   var hideSuccessPopup = function () {
-    setTimeout(function () {
-      successPopUp.classList.add('hidden');
-    }, 3000);
+    successPopUp.classList.add('hidden');
   };
 
+  var onPressEscHideSuccessPopup = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      hideSuccessPopup();
+    }
+  };
+
+  var hideSuccessPopupWithTimeout = function () {
+    setTimeout(function () {
+      successPopUp.classList.add('hidden');
+    }, 5000);
+  };
+
+  if (successPopUp.classList.contains('hidden')) {
+    document.addEventListener('click', hideSuccessPopup);
+    document.addEventListener('keydown', onPressEscHideSuccessPopup);
+  }
   var onFormUploadSuccess = function () {
     showSuccessPopUp();
-    hideSuccessPopup();
+    hideSuccessPopupWithTimeout();
     window.form.fieldsetModeSwitcher(true);
     window.form.hideForm();
     document.querySelector('.map').classList.add('map--faded');
