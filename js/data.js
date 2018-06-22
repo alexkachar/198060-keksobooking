@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-
-  window.ADVERTS_NUMBER = 8;
   window.adverts = [];
 
   var onSuccessGetAdvertsArray = function (serverData) {
