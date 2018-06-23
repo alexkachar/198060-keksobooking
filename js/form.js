@@ -178,6 +178,7 @@
     document.addEventListener('click', hideSuccessPopup);
     document.addEventListener('keydown', onPressEscHideSuccessPopup);
   }
+
   var onFormUploadSuccess = function () {
     showSuccessPopUp();
     hideSuccessPopupWithTimeout();
