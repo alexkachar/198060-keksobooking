@@ -5,7 +5,6 @@
   var ESC_KEYCODE = 27;
 
   var map = document.querySelector('.map');
-  window.mainPin = map.querySelector('.map__pin--main');
 
   var fadeMap = function () {
     map.classList.add('map--faded');
@@ -24,7 +23,7 @@
     unfadeMap();
     window.form.showForm();
     window.form.fieldsetModeSwitcher(false);
-    window.pins.drawMapPins(window.ADVERTS_NUMBER);
+    window.pins.drawMapPins(window.adverts.length);
   };
 
   var onPressEnterShow = function (evt) {

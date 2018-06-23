@@ -6,6 +6,9 @@
   var MAP_PIN_OFFSET_X = '30';
   var MAP_PIN_OFFSET_Y = '87';
 
+  window.mainPin = document.querySelector('.map__pin--main');
+  var mapPins = document.querySelector('.map__pins');
+
   var renderMapPin = function (offerData, index) {
     var mapPin = document.createElement('button');
     mapPin.className = 'map__pin';
@@ -23,12 +26,26 @@
     return mapPin;
   };
 
+  var mainPinStart = {
+    left: window.mainPin.offsetLeft,
+    top: window.mainPin.offsetTop
+  };
+
   window.pins = {
     drawMapPins: function (pinsNumber) {
-      var mapPins = document.querySelector('.map__pins');
       for (var i = 0; i < pinsNumber; i++) {
         mapPins.appendChild(renderMapPin(window.adverts[i], i));
       }
+    },
+    removeMapPins: function () {
+      var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
+      for (var i = 0; i < pins.length; i++) {
+        mapPins.removeChild(pins[i]);
+      }
+    },
+    resetMainPin: function () {
+      window.mainPin.style.left = mainPinStart.left + 'px';
+      window.mainPin.style.top = mainPinStart.top + 'px';
     }
   };
 })();
