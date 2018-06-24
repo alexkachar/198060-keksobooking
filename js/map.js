@@ -23,7 +23,7 @@
     unfadeMap();
     window.form.showForm();
     window.form.fieldsetModeSwitcher(false);
-    window.pins.drawMapPins(window.adverts.length);
+    window.pins.drawMapPins(window.adverts.length, window.adverts);
   };
 
   var onPressEnterShow = function (evt) {

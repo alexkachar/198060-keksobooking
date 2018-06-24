@@ -32,9 +32,9 @@
   };
 
   window.pins = {
-    drawMapPins: function (pinsNumber) {
+    drawMapPins: function (pinsNumber, offerData) {
       for (var i = 0; i < pinsNumber; i++) {
-        mapPins.appendChild(renderMapPin(window.adverts[i], i));
+        mapPins.appendChild(renderMapPin(offerData[i], i));
       }
     },
     removeMapPins: function () {
