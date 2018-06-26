@@ -38,32 +38,34 @@
     window.form.setAddress();
   };
 
-  var closePopup = function () {
-    if (map.contains(map.querySelector('.popup'))) {
-      map.querySelector('.popup').remove();
-      map.querySelector('.map__pin--active').classList.remove('map__pin--active');
-      document.removeEventListener('keydown', onPressEscClose);
+  window.map = {
+    closePopup: function () {
+      if (map.contains(map.querySelector('.popup'))) {
+        map.querySelector('.popup').remove();
+        map.querySelector('.map__pin--active').classList.remove('map__pin--active');
+        document.removeEventListener('keydown', onPressEscClose);
+      }
+    },
+
+    openPopup: function (evt) {
+      if (map.contains(map.querySelector('.map__pin--active'))) {
+        map.querySelector('.map__pin--active').classList.remove('map__pin--active');
+      }
+      if (map.contains(map.querySelector('.popup'))) {
+        map.querySelector('.popup').remove();
+      }
+      evt.currentTarget.classList.add('map__pin--active');
+      map.insertBefore(window.card.renderAdvertCard(window.adverts[evt.currentTarget.dataset.number]), document.querySelector('.map__filters-container'));
+      var popupClose = document.querySelector('.popup__close');
+      popupClose.addEventListener('click', window.map.closePopup);
+      document.addEventListener('keydown', onPressEscClose);
     }
   };
 
   var onPressEscClose = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      closePopup();
+      window.map.closePopup();
     }
-  };
-
-  window.openPopup = function (evt) {
-    if (map.contains(map.querySelector('.map__pin--active'))) {
-      map.querySelector('.map__pin--active').classList.remove('map__pin--active');
-    }
-    if (map.contains(map.querySelector('.popup'))) {
-      map.querySelector('.popup').remove();
-    }
-    evt.currentTarget.classList.add('map__pin--active');
-    map.insertBefore(window.card.renderAdvertCard(window.adverts[evt.currentTarget.dataset.number]), document.querySelector('.map__filters-container'));
-    var popupClose = document.querySelector('.popup__close');
-    popupClose.addEventListener('click', closePopup);
-    document.addEventListener('keydown', onPressEscClose);
   };
 
   window.mainPin.addEventListener('mouseup', onMouseUpShow);
