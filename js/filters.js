@@ -68,10 +68,10 @@
   var customizeAdvert = function () {
     var slicedAdvert = window.adverts.slice();
     var filteredAdvert = slicedAdvert.filter(onHousingTypeChange)
-                                    .filter(onHousingPriceChange)
-                                    .filter(onHousingRoomsChange)
-                                    .filter(onHousingGuestChange)
-                                    .filter(onHousingFeaturesChange);
+        .filter(onHousingPriceChange)
+        .filter(onHousingRoomsChange)
+        .filter(onHousingGuestChange)
+        .filter(onHousingFeaturesChange);
     window.map.closePopup();
     window.pins.removeMapPins();
     window.pins.drawMapPins(filteredAdvert);

@@ -3,8 +3,8 @@
 (function () {
   var MAP_PIN_WIDTH = '40';
   var MAP_PIN_HEIGHT = '40';
-  var MAP_PIN_OFFSET_X = '30';
-  var MAP_PIN_OFFSET_Y = '87';
+  var MAP_PIN_OFFSET_X = '25';
+  var MAP_PIN_OFFSET_Y = '70';
   var MAX_PINS_QUANTITY = 5;
 
   window.mainPin = document.querySelector('.map__pin--main');
