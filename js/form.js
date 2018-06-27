@@ -187,6 +187,7 @@
     document.querySelector('.map').classList.add('map--faded');
     window.pins.removeMapPins();
     window.pins.resetMainPin();
+    window.map.addMainPinListeners();
     adForm.reset();
   };
 

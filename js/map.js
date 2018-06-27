@@ -19,11 +19,19 @@
     window.form.fieldsetModeSwitcher(true);
   };
 
+  var removeMainPinListerners = function () {
+    if (!map.classList.contains('map--faded')) {
+      window.mainPin.removeEventListener('mouseup', onMouseUpShow);
+      window.mainPin.removeEventListener('keydown', onPressEnterShow);
+    }
+  };
+
   var makeInterfaceVisible = function () {
     unfadeMap();
     window.form.showForm();
     window.form.fieldsetModeSwitcher(false);
     window.pins.drawMapPins(window.adverts);
+    removeMainPinListerners();
   };
 
   var onPressEnterShow = function (evt) {
@@ -59,6 +67,11 @@
       var popupClose = document.querySelector('.popup__close');
       popupClose.addEventListener('click', window.map.closePopup);
       document.addEventListener('keydown', onPressEscClose);
+    },
+
+    addMainPinListeners: function () {
+      window.mainPin.addEventListener('mouseup', onMouseUpShow);
+      window.mainPin.addEventListener('keydown', onPressEnterShow);
     }
   };
 
@@ -68,8 +81,7 @@
     }
   };
 
-  window.mainPin.addEventListener('mouseup', onMouseUpShow);
-  window.mainPin.addEventListener('keydown', onPressEnterShow);
+  window.map.addMainPinListeners();
   map.addEventListener('keydown', onPressEscClose);
 
   fadeInterface();
