@@ -74,7 +74,7 @@
                                     .filter(onHousingFeaturesChange);
     window.map.closePopup();
     window.pins.removeMapPins();
-    window.pins.drawMapPins(filteredAdvert.length, filteredAdvert);
+    window.pins.drawMapPins(filteredAdvert);
   };
 
   mapFilters.addEventListener('change', window.utils.debounce(customizeAdvert));

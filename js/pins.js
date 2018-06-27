@@ -5,7 +5,7 @@
   var MAP_PIN_HEIGHT = '40';
   var MAP_PIN_OFFSET_X = '30';
   var MAP_PIN_OFFSET_Y = '87';
-  // var MAX_PINS_QUANTITY = 5;
+  var MAX_PINS_QUANTITY = 5;
 
   window.mainPin = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
@@ -13,7 +13,7 @@
   var renderMapPin = function (offerData) {
     var mapPin = document.createElement('button');
     mapPin.className = 'map__pin';
-    mapPin.setAttribute('data-number', offerData.offer.number);
+    mapPin.setAttribute('data-number', offerData.dataNumber);
     mapPin.style.left = offerData.location.x - MAP_PIN_OFFSET_X + 'px';
     mapPin.style.top = offerData.location.y - MAP_PIN_OFFSET_Y + 'px';
     mapPin.addEventListener('click', window.map.openPopup);
@@ -33,8 +33,9 @@
   };
 
   window.pins = {
-    drawMapPins: function (pinsNumber, offerData) {
-      for (var i = 0; i < pinsNumber; i++) {
+    drawMapPins: function (offerData) {
+      var slicedArray = offerData.slice(0, MAX_PINS_QUANTITY);
+      for (var i = 0; i < slicedArray.length; i++) {
         mapPins.appendChild(renderMapPin(offerData[i]));
       }
     },
