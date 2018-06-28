@@ -33,10 +33,10 @@
   };
 
   window.pins = {
-    drawMapPins: function (offerData) {
-      var slicedArray = offerData.slice(0, MAX_PINS_QUANTITY);
-      for (var i = 0; i < slicedArray.length; i++) {
-        mapPins.appendChild(renderMapPin(offerData[i]));
+    drawMapPins: function (offersData) {
+      var offersCopy = offersData.slice(0, MAX_PINS_QUANTITY);
+      for (var i = 0; i < offersCopy.length; i++) {
+        mapPins.appendChild(renderMapPin(offersData[i]));
       }
     },
     removeMapPins: function () {

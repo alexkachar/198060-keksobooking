@@ -1,12 +1,6 @@
 'use strict';
 
 (function () {
-  var mapFilters = document.querySelector('.map__filters');
-  var housingType = document.querySelector('#housing-type');
-  var housingPrice = document.querySelector('#housing-price');
-  var housingRooms = document.querySelector('#housing-rooms');
-  var housingGuests = document.querySelector('#housing-guests');
-  var housingFeatures = document.querySelectorAll('.map__checkbox');
 
   var PRICE_RANGES = {
     low: {
@@ -18,9 +12,17 @@
       max: 50000
     },
     hight: {
-      min: 50000
+      min: 50000,
+      max: Infinity
     }
   };
+
+  var mapFilters = document.querySelector('.map__filters');
+  var housingType = document.querySelector('#housing-type');
+  var housingPrice = document.querySelector('#housing-price');
+  var housingRooms = document.querySelector('#housing-rooms');
+  var housingGuests = document.querySelector('#housing-guests');
+  var housingFeatures = document.querySelectorAll('.map__checkbox');
 
   var onHousingTypeChange = function (advert) {
     if (housingType[housingType.selectedIndex].value === 'any') {
@@ -49,16 +51,16 @@
     return advert.offer.rooms === parseInt(housingRooms[housingRooms.selectedIndex].value, 10);
   };
 
-  var onHousingGuestChange = function (ad) {
+  var onHousingGuestChange = function (advert) {
     if (housingGuests[housingGuests.selectedIndex].value === 'any') {
-      return ad;
+      return advert;
     }
-    return ad.offer.guests === parseInt(housingGuests[housingGuests.selectedIndex].value, 10);
+    return advert.offer.guests === parseInt(housingGuests[housingGuests.selectedIndex].value, 10);
   };
 
-  var onHousingFeaturesChange = function (ad) {
+  var onHousingFeaturesChange = function (advert) {
     for (var i = 0; i < housingFeatures.length; i++) {
-      if (housingFeatures[i].checked && ad.offer.features.indexOf(housingFeatures[i].value) < 0) {
+      if (housingFeatures[i].checked && advert.offer.features.indexOf(housingFeatures[i].value) < 0) {
         return false;
       }
     }
@@ -66,8 +68,8 @@
   };
 
   var customizeAdvert = function () {
-    var slicedAdvert = window.adverts.slice();
-    var filteredAdvert = slicedAdvert.filter(onHousingTypeChange)
+    var advertsCopy = window.adverts.slice();
+    var filteredAdvert = advertsCopy.filter(onHousingTypeChange)
         .filter(onHousingPriceChange)
         .filter(onHousingRoomsChange)
         .filter(onHousingGuestChange)

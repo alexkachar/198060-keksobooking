@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var RENT_VALUES = {
     'flat': {
       min: '1000',
