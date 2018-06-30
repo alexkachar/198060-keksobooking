@@ -4,14 +4,14 @@
   var PHOTO_IMAGE_WIDTH = '40';
   var PHOTO_IMAGE_HEIGHT = '40';
 
-  var mapCardTemplate = document.querySelector('template').content.querySelector('.map__card');
-
   var TYPES_MAP = {
     'palace': 'Дворец',
     'flat': 'Квартира',
     'house': 'Дом',
     'bungalo': 'Бунгало'
   };
+
+  var mapCardTemplate = document.querySelector('template').content.querySelector('.map__card');
 
   window.card = {
     renderAdvertCard: function (offerData) {

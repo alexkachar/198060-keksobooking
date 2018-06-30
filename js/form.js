@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var RENT_VALUES = {
     'flat': {
       min: '1000',
@@ -187,6 +188,7 @@
     document.querySelector('.map').classList.add('map--faded');
     window.pins.removeMapPins();
     window.pins.resetMainPin();
+    window.map.addMainPinListeners();
     adForm.reset();
   };
 

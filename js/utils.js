@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+
+  var DEBOUNCE_INTERVAL = 500;
+
   window.utils = {
     onErrorRenderMessage: function (errorMessage) {
       var node = document.createElement('div');
@@ -12,6 +15,15 @@
 
       node.textContent = errorMessage;
       document.body.insertAdjacentElement('afterbegin', node);
+    },
+    debounce: function (action) {
+      var lastTimeout;
+      return function () {
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        lastTimeout = window.setTimeout(action, DEBOUNCE_INTERVAL);
+      };
     }
   };
 })();
