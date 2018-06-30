@@ -26,7 +26,7 @@
 
   var onHousingTypeChange = function (advert) {
     if (housingType[housingType.selectedIndex].value === 'any') {
-      return advert;
+      return true;
     }
     return advert.offer.type === housingType[housingType.selectedIndex].value;
   };
@@ -40,20 +40,20 @@
       case 'high':
         return advert.offer.price >= PRICE_RANGES.hight.min;
       default:
-        return advert;
+        return true;
     }
   };
 
   var onHousingRoomsChange = function (advert) {
     if (housingRooms[housingRooms.selectedIndex].value === 'any') {
-      return advert;
+      return true;
     }
     return advert.offer.rooms === parseInt(housingRooms[housingRooms.selectedIndex].value, 10);
   };
 
   var onHousingGuestChange = function (advert) {
     if (housingGuests[housingGuests.selectedIndex].value === 'any') {
-      return advert;
+      return true;
     }
     return advert.offer.guests === parseInt(housingGuests[housingGuests.selectedIndex].value, 10);
   };
@@ -69,14 +69,17 @@
 
   var customizeAdvert = function () {
     var advertsCopy = window.adverts.slice();
-    var filteredAdvert = advertsCopy.filter(onHousingTypeChange)
-        .filter(onHousingPriceChange)
-        .filter(onHousingRoomsChange)
-        .filter(onHousingGuestChange)
-        .filter(onHousingFeaturesChange);
+    var filteredAdverts = advertsCopy.filter(function (advert) {
+      return onHousingTypeChange(advert) &&
+        onHousingPriceChange(advert) &&
+        onHousingRoomsChange(advert) &&
+        onHousingGuestChange(advert) &&
+        onHousingFeaturesChange(advert);
+    });
+
     window.map.closePopup();
     window.pins.removeMapPins();
-    window.pins.drawMapPins(filteredAdvert);
+    window.pins.drawMapPins(filteredAdverts);
   };
 
   mapFilters.addEventListener('change', window.utils.debounce(customizeAdvert));
