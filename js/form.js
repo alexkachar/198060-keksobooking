@@ -21,8 +21,6 @@
     }
   };
 
-  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
   var adForm = document.querySelector('.ad-form');
   var adFormTitleField = adForm.querySelector('#title');
   var adFormPriceField = adForm.querySelector('#price');
@@ -32,76 +30,7 @@
   var adFormCheckInSelect = adForm.querySelector('#timein');
   var adFormCheckOutSelect = adForm.querySelector('#timeout');
   var adFormAddressField = adForm.querySelector('#address');
-
-  var adFormAvatarField = adForm.querySelector('#avatar');
-  var adFormAvatarPreviewCover = adForm.querySelector('.ad-form-header__preview');
-  var adFormAvatarPreview = adForm.querySelector('.ad-form-header__preview img');
-
-  var PREVIEW_PARAM = {
-    width: '70',
-    height: '70',
-    style: 'border-radius: 5px;'
-  };
-
-  var PREVIEW_PADDING = 'padding: 0;';
-
-  var onSuccessLoadAvatar = function () {
-    var file = adFormAvatarField.files[0];
-    var fileName = file.name.toLowerCase();
-
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
-    });
-
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        adFormAvatarPreview.src = reader.result;
-        adFormAvatarPreview.width = PREVIEW_PARAM.width;
-        adFormAvatarPreview.height = PREVIEW_PARAM.height;
-        adFormAvatarPreview.style = PREVIEW_PARAM.style;
-        adFormAvatarPreviewCover.style = PREVIEW_PADDING;
-      });
-
-      reader.readAsDataURL(file);
-    }
-  };
-
-  adFormAvatarField.addEventListener('change', onSuccessLoadAvatar);
-
-  var adFormImagesField = adForm.querySelector('#images');
-  var adFormPhoto = adForm.querySelector('.ad-form__photo');
-  var adFormPhotoContainer = adForm.querySelector('.ad-form__photo-container');
-
-  var onSuccessLoadImages = function () {
-    var file = adFormImagesField.files[0];
-    var fileName = file.name.toLowerCase();
-
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
-    });
-
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        var photoCover = document.createElement('div');
-        photoCover.className = 'ad-form__photo';
-        var photo = document.createElement('img');
-        photo.src = reader.result;
-        photo.width = PREVIEW_PARAM.width;
-        photo.height = PREVIEW_PARAM.height;
-        photo.style = PREVIEW_PARAM.style;
-        photoCover.appendChild(photo);
-        adFormPhotoContainer.insertBefore(photoCover, adFormPhoto);
-      });
-
-      reader.readAsDataURL(file);
-    }
-  };
-
-  adFormImagesField.addEventListener('change', onSuccessLoadImages);
+  var adFormReset = adForm.querySelector('.ad-form__reset');
 
   window.form = {
     fieldsetModeSwitcher: function (flag) {
@@ -252,16 +181,25 @@
     document.addEventListener('keydown', onPressEscHideSuccessPopup);
   }
 
-  var onFormUploadSuccess = function () {
-    showSuccessPopUp();
-    hideSuccessPopupWithTimeout();
+  var resetInterface = function () {
     window.form.fieldsetModeSwitcher(true);
     window.form.hideForm();
-    document.querySelector('.map').classList.add('map--faded');
+    window.map.fadeMap();
     window.pins.removeMapPins();
     window.pins.resetMainPin();
     window.map.addMainPinListeners();
     adForm.reset();
+  };
+
+  var onFormUploadSuccess = function () {
+    showSuccessPopUp();
+    hideSuccessPopupWithTimeout();
+    resetInterface();
+  };
+
+  var onAdFormResetClick = function (evt) {
+    evt.preventDefault();
+    resetInterface();
   };
 
   adForm.addEventListener('submit', function (evt) {
@@ -269,4 +207,5 @@
     window.backend.upload(onFormUploadSuccess, window.utils.onErrorRenderMessage, new FormData(adForm));
   });
 
+  adFormReset.addEventListener('click', onAdFormResetClick);
 })();
