@@ -188,6 +188,7 @@
     window.pins.removeMapPins();
     window.pins.resetMainPin();
     window.map.addMainPinListeners();
+    window.resetFilesLoaders();
     adForm.reset();
   };
 

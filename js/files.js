@@ -69,6 +69,14 @@
     }
   };
 
+  window.resetFilesLoaders = function () {
+    adFormAvatarPreview.src = 'img/muffin-grey.svg';
+    var adFormPhotos = adFormPhotoContainer.querySelectorAll('.ad-form__photo');
+    for (var i = 0; i < (adFormPhotos.length - 1); i++) {
+      adFormPhotoContainer.removeChild(adFormPhotos[i]);
+    }
+  };
+
   adFormAvatarField.addEventListener('change', onSuccessLoadAvatar);
   adFormImagesField.addEventListener('change', onSuccessLoadImages);
 })();
