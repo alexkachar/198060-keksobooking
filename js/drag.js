@@ -29,6 +29,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+      window.form.setAddress();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -58,7 +59,5 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-
-    window.form.setAddress();
   });
 })();

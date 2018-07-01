@@ -43,6 +43,7 @@
       adFormAddressField.value = (window.mainPin.offsetLeft
           + Math.round(window.mainPin.offsetWidth / 2)) + ', '
           + (window.mainPin.offsetTop + Math.round(window.mainPin.offsetHeight));
+      adFormAddressField.setAttribute('placeholder', adFormAddressField.value);
     },
     showForm: function () {
       adForm.classList.remove('ad-form--disabled');
