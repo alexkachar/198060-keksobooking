@@ -6,16 +6,12 @@
 
   var map = document.querySelector('.map');
 
-  var fadeMap = function () {
-    map.classList.add('map--faded');
-  };
-
   var unfadeMap = function () {
     map.classList.remove('map--faded');
   };
 
   var fadeInterface = function () {
-    fadeMap();
+    window.map.fadeMap();
     window.form.fieldsetModeSwitcher(true);
   };
 
@@ -47,6 +43,10 @@
   };
 
   window.map = {
+    fadeMap: function () {
+      map.classList.add('map--faded');
+    },
+
     closePopup: function () {
       if (map.contains(map.querySelector('.popup'))) {
         map.querySelector('.popup').remove();

@@ -30,6 +30,7 @@
   var adFormCheckInSelect = adForm.querySelector('#timein');
   var adFormCheckOutSelect = adForm.querySelector('#timeout');
   var adFormAddressField = adForm.querySelector('#address');
+  var adFormReset = adForm.querySelector('.ad-form__reset');
 
   window.form = {
     fieldsetModeSwitcher: function (flag) {
@@ -180,16 +181,26 @@
     document.addEventListener('keydown', onPressEscHideSuccessPopup);
   }
 
-  var onFormUploadSuccess = function () {
-    showSuccessPopUp();
-    hideSuccessPopupWithTimeout();
+  var resetInterface = function () {
     window.form.fieldsetModeSwitcher(true);
     window.form.hideForm();
-    document.querySelector('.map').classList.add('map--faded');
+    window.map.fadeMap();
     window.pins.removeMapPins();
     window.pins.resetMainPin();
     window.map.addMainPinListeners();
+    window.resetFilesLoaders();
     adForm.reset();
+  };
+
+  var onFormUploadSuccess = function () {
+    showSuccessPopUp();
+    hideSuccessPopupWithTimeout();
+    resetInterface();
+  };
+
+  var onAdFormResetClick = function (evt) {
+    evt.preventDefault();
+    resetInterface();
   };
 
   adForm.addEventListener('submit', function (evt) {
@@ -197,4 +208,5 @@
     window.backend.upload(onFormUploadSuccess, window.utils.onErrorRenderMessage, new FormData(adForm));
   });
 
+  adFormReset.addEventListener('click', onAdFormResetClick);
 })();
