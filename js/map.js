@@ -13,6 +13,7 @@
   var fadeInterface = function () {
     window.map.fadeMap();
     window.form.fieldsetModeSwitcher(true);
+    window.form.setAddress();
   };
 
   var removeMainPinListerners = function () {
@@ -28,18 +29,17 @@
     window.form.fieldsetModeSwitcher(false);
     window.pins.drawMapPins(window.adverts);
     removeMainPinListerners();
+    window.form.setAddress();
   };
 
   var onPressEnterShow = function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       makeInterfaceVisible();
-      window.form.setAddress();
     }
   };
 
   var onMouseUpShow = function () {
     makeInterfaceVisible();
-    window.form.setAddress();
   };
 
   window.map = {
