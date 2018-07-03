@@ -39,15 +39,18 @@
         fieldset[i].disabled = flag;
       }
     },
+
     setAddress: function () {
       adFormAddressField.value = (window.mainPin.offsetLeft
           + Math.round(window.mainPin.offsetWidth / 2)) + ', '
           + (window.mainPin.offsetTop + Math.round(window.mainPin.offsetHeight));
       adFormAddressField.setAttribute('placeholder', adFormAddressField.value);
     },
+
     showForm: function () {
       adForm.classList.remove('ad-form--disabled');
     },
+
     hideForm: function () {
       adForm.classList.add('ad-form--disabled');
     }
@@ -187,10 +190,10 @@
     window.form.hideForm();
     window.map.fadeMap();
     window.pins.removeMapPins();
-    window.pins.resetMainPin();
-    window.map.addMainPinListeners();
     window.resetFilesLoaders();
     adForm.reset();
+    window.pins.resetMainPin();
+    window.map.addMainPinListeners();
   };
 
   var onFormUploadSuccess = function () {
