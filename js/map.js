@@ -12,7 +12,7 @@
 
   var fadeInterface = function () {
     window.map.fadeMap();
-    window.form.fieldsetModeSwitcher(true);
+    window.form.switchFieldsetMode(true);
     window.form.setAddress();
   };
 
@@ -26,7 +26,7 @@
   var makeInterfaceVisible = function () {
     unfadeMap();
     window.form.showForm();
-    window.form.fieldsetModeSwitcher(false);
+    window.form.switchFieldsetMode(false);
     window.pins.drawMapPins(window.adverts);
     removeMainPinListerners();
     window.form.setAddress();

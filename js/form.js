@@ -33,7 +33,7 @@
   var adFormReset = adForm.querySelector('.ad-form__reset');
 
   window.form = {
-    fieldsetModeSwitcher: function (flag) {
+    switchFieldsetMode: function (flag) {
       var fieldset = document.querySelectorAll('fieldset');
       for (var i = 0; i < fieldset.length; i++) {
         fieldset[i].disabled = flag;
@@ -183,7 +183,7 @@
   }
 
   var resetInterface = function () {
-    window.form.fieldsetModeSwitcher(true);
+    window.form.switchFieldsetMode(true);
     window.form.hideForm();
     window.map.fadeMap();
     window.pins.removeMapPins();
