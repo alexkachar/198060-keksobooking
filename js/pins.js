@@ -48,6 +48,7 @@
     resetMainPin: function () {
       window.mainPin.style.left = mainPinStart.left + 'px';
       window.mainPin.style.top = mainPinStart.top + 'px';
+      window.form.setAddress();
     }
   };
 })();
