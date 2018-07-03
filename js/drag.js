@@ -15,7 +15,7 @@
     minY: 130,
     maxY: 630,
     minX: 0,
-    maxX: 1100
+    maxX: 1200
   };
 
 
