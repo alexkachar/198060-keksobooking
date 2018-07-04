@@ -9,10 +9,10 @@
   var MAIN_PIN_WIDTH_HALFED = MAIN_PIN_SIZES.width / 2;
 
   var MAIN_PIN_LIMITS = {
-    minY: 130,
+    minY: 128,
     maxY: 630,
-    minX: 0,
-    maxX: 1200
+    minX: -1,
+    maxX: 1168
   };
 
 
@@ -26,7 +26,6 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      window.form.setAddress();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -50,6 +49,7 @@
         window.mainPin.style.left = shiftOffsetX + 'px';
       }
 
+      window.form.setAddress();
     };
 
     var onMouseUp = function (upEvt) {
