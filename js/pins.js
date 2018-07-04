@@ -35,9 +35,11 @@
   window.pins = {
     drawMapPins: function (offersData) {
       var offersCopy = offersData.slice(0, MAX_PINS_QUANTITY);
+      var pinsFragment = document.createDocumentFragment();
       for (var i = 0; i < offersCopy.length; i++) {
-        mapPins.appendChild(renderMapPin(offersData[i]));
+        pinsFragment.appendChild(renderMapPin(offersData[i]));
       }
+      mapPins.appendChild(pinsFragment);
     },
     removeMapPins: function () {
       var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
