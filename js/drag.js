@@ -9,8 +9,8 @@
   var MAIN_PIN_WIDTH_HALFED = MAIN_PIN_SIZES.width / 2;
 
   var MAIN_PIN_LIMITS = {
-    minY: 128,
-    maxY: 630,
+    minY: 129,
+    maxY: 631,
     minX: -1,
     maxX: 1168
   };
