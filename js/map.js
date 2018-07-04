@@ -2,7 +2,6 @@
 
 (function () {
 
-
   var map = document.querySelector('.map');
 
   var unfadeMap = function () {
