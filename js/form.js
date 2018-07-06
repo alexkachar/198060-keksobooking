@@ -31,6 +31,7 @@
   var adFormCheckOutSelect = adForm.querySelector('#timeout');
   var adFormAddressField = adForm.querySelector('#address');
   var adFormReset = adForm.querySelector('.ad-form__reset');
+  var successPopUp = document.querySelector('.success');
 
   window.form = {
     switchFieldsetMode: function (flag) {
@@ -157,9 +158,6 @@
     adForm.reset();
   });
 
-  var ESC_KEYCODE = 27;
-  var successPopUp = document.querySelector('.success');
-
   var showSuccessPopUp = function () {
     successPopUp.classList.remove('hidden');
   };
@@ -169,7 +167,7 @@
   };
 
   var onPressEscHideSuccessPopup = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === window.utils.ESC_KEYCODE) {
       hideSuccessPopup();
     }
   };

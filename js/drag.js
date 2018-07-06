@@ -2,20 +2,17 @@
 
 (function () {
   var MAIN_PIN_SIZES = {
-    width: 50,
-    height: 82
+    width: window.mainPin.offsetWidth,
+    height: window.mainPin.offsetHeight
   };
 
-  var MAIN_PIN_SIZES_HALFED = {
-    width: MAIN_PIN_SIZES.width / 2,
-    height: MAIN_PIN_SIZES.height / 2
-  };
+  var MAIN_PIN_WIDTH_HALFED = MAIN_PIN_SIZES.width / 2;
 
-  var PIN_RESTRICTIONS = {
-    minY: 130,
-    maxY: 630,
-    minX: 0,
-    maxX: 1100
+  var MAIN_PIN_LIMITS = {
+    minY: 129,
+    maxY: 631,
+    minX: -1,
+    maxX: 1168
   };
 
 
@@ -29,7 +26,6 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      window.form.setAddress();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -41,13 +37,19 @@
         y: moveEvt.clientY
       };
 
-      if ((window.mainPin.offsetTop - shift.y) < PIN_RESTRICTIONS.maxY - MAIN_PIN_SIZES_HALFED.height && window.mainPin.offsetTop - shift.y > PIN_RESTRICTIONS.minY - MAIN_PIN_SIZES_HALFED.height) {
-        window.mainPin.style.top = (window.mainPin.offsetTop - shift.y) + 'px';
+      var shiftOffsetY = window.mainPin.offsetTop - shift.y;
+      var shiftOffsetX = window.mainPin.offsetLeft - shift.x;
+
+      if (shiftOffsetY < MAIN_PIN_LIMITS.maxY - MAIN_PIN_SIZES.height
+          && shiftOffsetY > MAIN_PIN_LIMITS.minY - MAIN_PIN_SIZES.height) {
+        window.mainPin.style.top = shiftOffsetY + 'px';
       }
-      if (window.mainPin.offsetLeft - shift.x > PIN_RESTRICTIONS.minX + MAIN_PIN_SIZES_HALFED.width && window.mainPin.offsetLeft - shift.x < PIN_RESTRICTIONS.maxX) {
-        window.mainPin.style.left = (window.mainPin.offsetLeft - shift.x) + 'px';
+      if (shiftOffsetX > MAIN_PIN_LIMITS.minX - MAIN_PIN_WIDTH_HALFED
+          && shiftOffsetX < MAIN_PIN_LIMITS.maxX) {
+        window.mainPin.style.left = shiftOffsetX + 'px';
       }
 
+      window.form.setAddress();
     };
 
     var onMouseUp = function (upEvt) {
