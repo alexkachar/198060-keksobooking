@@ -3,10 +3,14 @@
 (function () {
 
   var DEBOUNCE_INTERVAL = 500;
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
 
   window.utils = {
-    ESC_KEYCODE: 27,
-    ENTER_KEYCODE: 13,
+    keyCodes: {
+      ESC_KEYCODE: ESC_KEYCODE,
+      ENTER_KEYCODE: ENTER_KEYCODE
+    },
     onErrorRenderMessage: function (errorMessage) {
       var node = document.createElement('div');
       node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';

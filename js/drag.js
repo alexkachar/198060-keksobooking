@@ -1,20 +1,33 @@
 'use strict';
 
 (function () {
+  var MAIN_PIN_TAIL = 18;
+
   var MAIN_PIN_SIZES = {
     width: window.mainPin.offsetWidth,
-    height: window.mainPin.offsetHeight
+    height: window.mainPin.offsetHeight + MAIN_PIN_TAIL
   };
 
   var MAIN_PIN_WIDTH_HALFED = MAIN_PIN_SIZES.width / 2;
 
   var MAIN_PIN_LIMITS = {
-    minY: 129,
-    maxY: 631,
-    minX: -1,
-    maxX: 1168
+    minY: 130,
+    maxY: 630,
+    minX: 0,
+    maxX: 1200
   };
 
+  var LIMITS_INCLUDING_PIN_SIZE = {
+    minY: MAIN_PIN_LIMITS.minY - MAIN_PIN_SIZES.height,
+    maxY: MAIN_PIN_LIMITS.maxY - MAIN_PIN_SIZES.height,
+    minX: MAIN_PIN_LIMITS.minX - MAIN_PIN_WIDTH_HALFED,
+    maxX: MAIN_PIN_LIMITS.maxX - MAIN_PIN_WIDTH_HALFED
+  };
+
+  window.drag = {
+    mainPinWidthHalfed: MAIN_PIN_WIDTH_HALFED,
+    mainPinHeight: MAIN_PIN_SIZES.height
+  };
 
   window.mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -40,12 +53,10 @@
       var shiftOffsetY = window.mainPin.offsetTop - shift.y;
       var shiftOffsetX = window.mainPin.offsetLeft - shift.x;
 
-      if (shiftOffsetY < MAIN_PIN_LIMITS.maxY - MAIN_PIN_SIZES.height
-          && shiftOffsetY > MAIN_PIN_LIMITS.minY - MAIN_PIN_SIZES.height) {
+      if (shiftOffsetY <= LIMITS_INCLUDING_PIN_SIZE.maxY && shiftOffsetY >= LIMITS_INCLUDING_PIN_SIZE.minY) {
         window.mainPin.style.top = shiftOffsetY + 'px';
       }
-      if (shiftOffsetX > MAIN_PIN_LIMITS.minX - MAIN_PIN_WIDTH_HALFED
-          && shiftOffsetX < MAIN_PIN_LIMITS.maxX) {
+      if (shiftOffsetX >= LIMITS_INCLUDING_PIN_SIZE.minX && shiftOffsetX <= LIMITS_INCLUDING_PIN_SIZE.maxX) {
         window.mainPin.style.left = shiftOffsetX + 'px';
       }
 

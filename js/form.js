@@ -42,10 +42,9 @@
     },
 
     setAddress: function () {
-      adFormAddressField.value = (window.mainPin.offsetLeft
-          + Math.round(window.mainPin.offsetWidth / 2)) + ', '
-          + (window.mainPin.offsetTop + Math.round(window.mainPin.offsetHeight));
-      adFormAddressField.setAttribute('placeholder', adFormAddressField.value);
+      var pinCoordinates = (window.mainPin.offsetLeft + Math.round(window.drag.mainPinWidthHalfed)) + ', ' + (window.mainPin.offsetTop + Math.round(window.drag.mainPinHeight));
+      adFormAddressField.setAttribute('placeholder', pinCoordinates);
+      adFormAddressField.value = pinCoordinates;
     },
 
     showForm: function () {
